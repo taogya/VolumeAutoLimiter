@@ -1,0 +1,61 @@
+﻿<Window
+    x:Class="VolumeAutoLimiter.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:VolumeAutoLimiter.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="{StaticResource title}"
+    Width="250"
+    Height="130"
+    MinWidth="250"
+    MinHeight="130"
+    MaxWidth="500"
+    MaxHeight="130"
+    mc:Ignorable="d">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="0.5*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="{StaticResource device_name}" />
+            <TextBlock Grid.Column="1" Text="{Binding DeviceName}" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="0.3*" />
+                <ColumnDefinition Width="0.2*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="{StaticResource limit_vol}" />
+            <TextBox Grid.Column="1" Text="{Binding LimitVolume, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            <Button
+                Grid.Column="2"
+                Command="{Binding UpdateCommand}"
+                Content="{StaticResource update}" />
+        </Grid>
+        <Grid Grid.Row="2" Margin="0,5,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="0.5*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="{StaticResource system_vol}" />
+            <Grid Grid.Column="1">
+                <Slider
+                    IsEnabled="False"
+                    Maximum="100"
+                    Minimum="0"
+                    Value="{Binding SystemVolume}" />
+                <Grid.ToolTip>
+                    <ToolTip Content="{Binding SystemVolume, Mode=OneWay}" />
+                </Grid.ToolTip>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

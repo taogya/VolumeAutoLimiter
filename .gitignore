@@ -1,0 +1,5 @@
+.vs
+VolumeAutoLimiter/obj
+VolumeAutoLimiter/bin
+
+*.user
