@@ -1,0 +1,2 @@
+# VolumeAutoLimiter
+Windows用の自動音量制限アプリ
