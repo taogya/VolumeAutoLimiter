@@ -26,18 +26,19 @@ namespace VolumeAutoLimiter.ViewModels
             var settings = Settings.Load();
             limitVolume = settings.Volume;
             parentWindow.Loaded += ParentWindow_Loaded;
+            parentWindow.Closing += ParentWindow_Closing;
             thread = new(new ParameterizedThreadStart(MonitorSystemVolume));
+        }
+
+        private void ParentWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            cancellationTokenSource.Cancel();
+            thread.Join(3000);
         }
 
         private void ParentWindow_Loaded(object sender, RoutedEventArgs e)
         {
             thread.Start(cancellationTokenSource.Token);
-        }
-
-        ~MainWindowViewModel()
-        {
-            cancellationTokenSource.Cancel();
-            thread.Join();
         }
 
         /// <summary>
@@ -77,14 +78,15 @@ namespace VolumeAutoLimiter.ViewModels
             {
                 try
                 {
+                    var settings = Settings.Load();
                     // システム音量を取得
                     int currentVolume = GetSystemVolume();
 
                     // SystemVolumeとLimitVolumeの値が違う場合
-                    if (currentVolume != LimitVolume)
+                    if (settings.Volume < currentVolume)
                     {
                         // システム音量をLimitVolumeに設定
-                        SetSystemVolume(LimitVolume);
+                        SetSystemVolume(settings.Volume);
                         // SystemVolumeにその値を設定
                         currentVolume = GetSystemVolume();
                     }
@@ -94,6 +96,7 @@ namespace VolumeAutoLimiter.ViewModels
                 catch (COMException)
                 {
                     DeviceName = "None";
+                    SystemVolume = 0;
                 }
 
                 // 一定時間待機
@@ -105,7 +108,7 @@ namespace VolumeAutoLimiter.ViewModels
         private string GetDeviceName()
         {
             var deviceEnumerator = new MMDeviceEnumerator();
-            var device = deviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+            var device = deviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
 
             return device.FriendlyName;
         }
@@ -114,10 +117,10 @@ namespace VolumeAutoLimiter.ViewModels
         private int GetSystemVolume()
         {
             var deviceEnumerator = new MMDeviceEnumerator();
-            var device = deviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+            var device = deviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
             float currentVolume = device.AudioEndpointVolume.MasterVolumeLevelScalar;
 
-            return (int)(currentVolume * 100);
+            return (int)(Math.Round(currentVolume * 100));
 
         }
 
