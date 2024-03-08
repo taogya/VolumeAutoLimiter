@@ -76,6 +76,14 @@ namespace VolumeAutoLimiter
         }
 
         /// <summary>
+        /// 言語文字列の取得
+        /// </summary>
+        public static String GetString(string key)
+        {
+            return (string)GetLanguage()[key];
+        }
+
+        /// <summary>
         /// アプリ開始時に処理する関数
         /// </summary>
         /// <param name="sender"></param>
@@ -86,7 +94,7 @@ namespace VolumeAutoLimiter
 #if DEBUG
             // デバッグ用コンソールの表示
             AllocConsole();
-            //Console.SetWindowSize(30, 10);
+            Console.SetWindowSize(30, 10);
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 #else
             // 想定外の例外を処理するイベントハンドラを登録

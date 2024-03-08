@@ -4,7 +4,10 @@
     xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="title">Volume Auto Limiter</system:String>
     <system:String x:Key="update">Update</system:String>
-    <system:String x:Key="system_vol">System Volume</system:String>
+    <system:String x:Key="output_vol">Output Volume</system:String>
+    <system:String x:Key="min_vol">Minimum Volume</system:String>
     <system:String x:Key="limit_vol">Limit Volume</system:String>
     <system:String x:Key="device_name">Device Name</system:String>
+    <system:String x:Key="open">Open</system:String>
+    <system:String x:Key="close">Close</system:String>
 </ResourceDictionary>

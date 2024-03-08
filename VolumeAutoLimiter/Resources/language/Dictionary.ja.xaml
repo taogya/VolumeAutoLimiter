@@ -4,7 +4,10 @@
     xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="title">音量自動制限</system:String>
     <system:String x:Key="update">更新</system:String>
-    <system:String x:Key="system_vol">システム音量</system:String>
+    <system:String x:Key="output_vol">出力音量</system:String>
+    <system:String x:Key="min_vol">最小音量</system:String>
     <system:String x:Key="limit_vol">制限音量</system:String>
     <system:String x:Key="device_name">デバイス名</system:String>
+    <system:String x:Key="open">開く</system:String>
+    <system:String x:Key="close">閉じる</system:String>
 </ResourceDictionary>

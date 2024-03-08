@@ -16,6 +16,16 @@ namespace VolumeAutoLimiter.Models
         public static string DefaultPath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings.xml");
 
         /// <summary>
+        /// 設定値が存在するか
+        /// </summary>
+        public static bool Exists() => Exists(DefaultPath);
+
+        /// <summary>
+        /// 設定値が存在するか
+        /// </summary>
+        public static bool Exists(string path) => File.Exists(path);
+
+        /// <summary>
         /// 設定値を読み込む
         /// </summary>
         public static Settings Load() => Load(DefaultPath);
@@ -25,21 +35,15 @@ namespace VolumeAutoLimiter.Models
         /// </summary>
         public static Settings Load(string path)
         {
+            var settings = new Settings();
             // ファイルが存在する場合は読み込む
-            if (System.IO.File.Exists(path))
+            if (File.Exists(path))
             {
                 var reader = new XmlSerializer(typeof(Settings));
                 using var file = new StreamReader(path);
-                var settings = (Settings)reader.Deserialize(file);
-                return settings;
+                settings = (Settings)reader.Deserialize(file);
             }
-            // ファイルが存在しない場合は新規作成
-            else
-            {
-                var settings = new Settings();
-                Save(settings, path);
-                return new Settings();
-            }
+            return settings;
         }
 
         /// <summary>
