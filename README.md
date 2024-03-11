@@ -14,7 +14,7 @@ Windows用の音量自動制限アプリ。<br>
 1. 起動<br>
     ビルド済みファイル内の VolumeAutoLimiter.exe をダブルクリックします。<br>
 1. 画面について<br>
-    ![MainWindow](MainWindow.png)
+    ![MainWindow](MainWindow.gif)
     1. デバイス名<br>
         現在接続中の出力デバイスが表示されます。<br>
         出力デバイスがない場合は，No Device が表示されます。<br>
